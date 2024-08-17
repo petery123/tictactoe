@@ -8,9 +8,6 @@ const gameBoard = (function() {
     const getBoard = () => board;
 
     const play = (symbol, row, col) => {
-        if (row > 2 || col > 2){
-            return false;
-        }
         if (board[row][col]!= ""){
             return false;
         };
@@ -22,9 +19,6 @@ const gameBoard = (function() {
 })();
 
 function createPlayer (name, symbol){
-    const name = name;
-    const symbol = symbol;
-
     return {name, symbol};
 };
 
@@ -32,5 +26,17 @@ function playGame(){
     const player1 = createPlayer("filler1", "X");
     const player2 = createPlayer("filler2", "O");
 
+    let play = 1;
 
+    playTurn();
+
+    function playTurn(){
+        const playerTurn = (play % 2 == 1)? player1 : player2;
+        do{
+            const position = prompt(`${playerTurn.name} enter coordinates in form "row,col"`);
+            var [row, col] = position.split(",").map(val => Number(val));
+            console.log(gameBoard.getBoard());
+        }while (!(gameBoard.play(playerTurn.symbol, row, col)));
+        play ++;
+    }
 };

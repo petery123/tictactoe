@@ -79,13 +79,17 @@ function createPlayer (name, symbol){
 };
 
 const playGame = (function() {
-    const player1 = createPlayer("filler1", "X");
-    const player2 = createPlayer("filler2", "O");
+    const player1 = createPlayer("player1", "X");
+    const player2 = createPlayer("player2", "O");
 
     let play = 1;
 
+    function activePlayer(){
+        return (play % 2 == 1)? player1 : player2;
+    }
+
     function _playTurn(){
-        const playerTurn = (play % 2 == 1)? player1 : player2;
+        const playerTurn = activePlayer();
         do{
             const position = prompt(`${playerTurn.name} enter coordinates in form "row,col"`);
             var [row, col] = position.split(",").map(val => Number(val));
@@ -110,5 +114,5 @@ const playGame = (function() {
         return player2;
     }
 
-    return {startGame, getWinner};
+    return {startGame, getWinner, };
 })();

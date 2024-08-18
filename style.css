@@ -1,0 +1,46 @@
+.game{
+    display: grid;
+    grid-template-columns: repeat(3, 100px);
+    grid-template-rows: repeat(3, 100px);
+}
+
+.row{
+    display: grid;
+    grid-template-columns: subgrid;
+    grid-template-rows: subgrid;
+}
+
+.cell{
+    display: grid;
+    grid-template-columns: subgrid;
+    grid-template-rows: subgrid;
+    outline: auto;
+}
+
+[data-row="0"]{
+    grid-row: 1 / 2;
+    grid-column: 1 / 4;
+}
+
+[data-row="1"]{
+    grid-row: 2 / 3;
+    grid-column: 1 / 4;
+}
+
+[data-row="2"]{
+    grid-row: 3 / 4;
+    grid-column: 1 / 4;
+}
+
+[data-col="0"]{
+    grid-column: 1 / 2;
+}
+
+[data-col="1"]{
+    grid-column: 2 / 3;
+}
+
+[data-col="2"]{
+    grid-column: 3 / 4;
+}
+

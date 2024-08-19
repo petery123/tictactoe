@@ -143,6 +143,7 @@ const gameDisplayControl = (function() {
     function deactivate(){
         for (let i = 0; i < 9; i++){
             cells[i].classList.toggle('filled', true);
+            cells.forEach((cell) => cell.removeEventListener("click", _play));
         };
     };
 

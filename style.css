@@ -1,7 +1,17 @@
+*{
+    font-family: monospace;
+    margin: 0;
+    padding: 0;
+}
+
 .game{
     display: grid;
     grid-template-columns: repeat(3, 100px);
     grid-template-rows: repeat(3, 100px);
+    width: min-content;
+    background-color: black;
+    gap: 1px;
+    border: 1px solid black;
 }
 
 .row{
@@ -14,7 +24,25 @@
     display: grid;
     grid-template-columns: subgrid;
     grid-template-rows: subgrid;
-    outline: auto;
+    background-color: beige;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 7em;
+}
+
+.cell:hover{
+    background-color: rgb(248, 248, 172);
+    cursor: pointer;
+}
+
+.cell:active{
+    background-color: rgb(179, 179, 165);
+}
+
+.cell.filled{
+    background-color: rgb(155, 155, 155);
+    cursor: default;
 }
 
 [data-row="0"]{

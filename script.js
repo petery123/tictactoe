@@ -6,7 +6,7 @@ const players = (function () {
         return {name, symbol};
     };
 
-    const createPlayers = () => {
+    function createPlayers(){
         const p1Name = player1Input.value == ""? "player 1" : player1Input.value;
         const p2Name = player2Input.value == ""? "player 2" : player2Input.value;
 
@@ -19,12 +19,12 @@ const players = (function () {
 })();
 
 const gameBoard = (function() {
-    const board = [
+    let board = [
         ["", "", ""],
         ["", "", ""],
         ["", "", ""]
     ];
-    let playCount = 0;
+    let playCount = 0; //used for optimization in checkEnd function
     let winner = "tie";
 
     const getBoard = () => board;
@@ -39,11 +39,20 @@ const gameBoard = (function() {
         return true;
     };
 
+    function reset(){
+        board = [
+            ["", "", ""],
+            ["", "", ""],
+            ["", "", ""]
+        ];
+        playCount = 0;
+    }
+
     const _transpose = (matrix = board) => {
         return board[0].map((_, colIndex) => matrix.map(row => row[colIndex]));
     };
 
-    const _diagonalize = (matrix = board) => {
+    const _diagonalize = (matrix = board) => {//to get the diagonals as a 2d array
         const diagonals = [[],[]];
         for (let i = 0; i < 3; i++){
             diagonals[0].push(matrix[i][i]);
@@ -64,7 +73,7 @@ const gameBoard = (function() {
     };
 
     const checkEnd = () => {
-        if (playCount < 5){
+        if (playCount < 5){//automatically returns false if less than 5 moves are made
             return false;
         };
 
@@ -91,14 +100,14 @@ const gameBoard = (function() {
         return true;
     };
 
-    return {getBoard, play, checkEnd, getWinner};
+    return {getBoard, play, checkEnd, getWinner, reset};
 })();
 
 const playGame = (function() {
     let player1 = players.createPlayers().player1;
     let player2 = players.createPlayers().player2;
 
-    const openGame = () => {
+    function openGame(){
         const postLoad = document.querySelector(".postLoad");
         const preLoad = document.querySelector(".preLoad");
 
@@ -118,11 +127,16 @@ const playGame = (function() {
     function activePlayer(){
         return (play % 2 == 1)? player1 : player2;
     };
+    
+    function reset(){
+        play = 1;
+    };
 
+    //Returns false
     function playTurn(row, col){
         const playerTurn = activePlayer();
         if (!gameBoard.play(playerTurn.symbol, row, col)){
-            return;
+            return true;
         };
 
         play ++;
@@ -142,7 +156,7 @@ const playGame = (function() {
         return player2;
     };
 
-    return {getWinner, playTurn, activePlayer};
+    return {getWinner, playTurn, activePlayer, reset};
 })();
 
 const playerDashboard = (function() {
@@ -152,7 +166,6 @@ const playerDashboard = (function() {
     const winnerDisplay = document.querySelector("#winner");
 
     function updateTurnSym(){
-        console.log("sss");
         const activePlayer = playGame.activePlayer();
         playerTurn.textContent = activePlayer.name;
         playerSymbol.textContent = activePlayer.symbol;
@@ -198,6 +211,14 @@ const gameDisplayControl = (function() {
         _render();
     };
 
+    function reset(){
+        _render();
+        for (let i = 0; i < 9; i++){
+            cells[i].classList.toggle('filled', false);
+            cells.forEach((cell) => cell.addEventListener("click", _play));
+        };
+    }
+
     function deactivate(){
         for (let i = 0; i < 9; i++){
             cells[i].classList.toggle('filled', true);
@@ -205,5 +226,17 @@ const gameDisplayControl = (function() {
         };
     };
 
-    return {deactivate};
+    return {deactivate, reset};
+})();
+
+const reset = (function() {
+    const resetBtn = document.querySelector("#reset");
+
+    resetBtn.addEventListener("click", reset);
+
+    function reset() {
+        playGame.reset();
+        gameBoard.reset();
+        gameDisplayControl.reset();
+    }
 })();

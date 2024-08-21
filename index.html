@@ -8,26 +8,40 @@
     <script src="script.js" defer></script>
 </head>
 <body>
-    <div class="playerDashboard">
-        <p>Player Turn: <span id="playerTurn"></span></p>
-        <p>Player Symbol: <span id="playerSymbol"></span></p>
-        <p>Winner: <span id="winner"></span></p>
+    <div class="preLoad">
+        <form action="#">
+            <h1>Enter Name</h1>
+            <label for="player1">Player 1:
+                <input type="text" id="player1" placeholder="Player 1">
+            </label>
+            <label for="player2">Player 2:
+                <input type="text" id="player2" placeholder="Player 2">
+            </label>
+            <button id="startBtn">START</button>
+        </form>
     </div>
-    <div class="game">
-        <div class="row" data-row="0">
-            <div class="cell" data-col="0"></div>
-            <div class="cell" data-col="1"></div>
-            <div class="cell" data-col="2"></div>
+    <div class="hidden postLoad">
+        <div class="playerDashboard">
+            <p>Player Turn: <span id="playerTurn"></span></p>
+            <p>Player Symbol: <span id="playerSymbol"></span></p>
+            <p>Winner: <span id="winner"></span></p>
         </div>
-        <div class="row" data-row="1">
-            <div class="cell" data-col="0"></div>
-            <div class="cell" data-col="1"></div>
-            <div class="cell" data-col="2"></div>
-        </div>
-        <div class="row" data-row="2">
-            <div class="cell" data-col="0"></div>
-            <div class="cell" data-col="1"></div>
-            <div class="cell" data-col="2"></div>
+        <div class="game">
+            <div class="row" data-row="0">
+                <div class="cell" data-col="0"></div>
+                <div class="cell" data-col="1"></div>
+                <div class="cell" data-col="2"></div>
+            </div>
+            <div class="row" data-row="1">
+                <div class="cell" data-col="0"></div>
+                <div class="cell" data-col="1"></div>
+                <div class="cell" data-col="2"></div>
+            </div>
+            <div class="row" data-row="2">
+                <div class="cell" data-col="0"></div>
+                <div class="cell" data-col="1"></div>
+                <div class="cell" data-col="2"></div>
+            </div>
         </div>
     </div>
 </body>
